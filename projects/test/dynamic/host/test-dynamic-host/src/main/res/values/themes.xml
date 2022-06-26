@@ -18,6 +18,10 @@
 
 <resources>
 
+    <style name="TestApplicationTheme" parent="@android:style/Theme.DeviceDefault" >
+        <item name="valueTest">@string/start_plugin</item>
+    </style>
+
     <style name="TestHostTheme" parent="@android:style/Theme.NoTitleBar.Fullscreen" />
 
 </resources>

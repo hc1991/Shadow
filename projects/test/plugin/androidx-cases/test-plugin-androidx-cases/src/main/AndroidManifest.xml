@@ -15,6 +15,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".lib.AppComponentFactoryTestActivity" />
+        <activity android:name=".lib.ThemeValueTestActivity"/>
         <activity
             android:name=".lib.AppCompatTestActivity"
             android:theme="@style/Theme.AppCompat" />

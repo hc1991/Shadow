@@ -7,7 +7,7 @@
         android:allowBackup="true"
         android:label="Shadow Dyanamic测试宿主App"
         android:name=".HostApplication"
-        android:theme="@android:style/Theme.DeviceDefault"
+        android:theme="@style/TestApplicationTheme"
         android:icon="@drawable/ic_launcher"
         tools:ignore="GoogleAppIndexingWarning">
         <activity android:name=".MainActivity">

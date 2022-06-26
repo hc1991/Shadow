@@ -45,7 +45,7 @@ object CreateResourceBloc {
         applicationInfo.packageName = hostApplicationInfo.packageName
         applicationInfo.uid = hostApplicationInfo.uid
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
             fillApplicationInfoForNewerApi(applicationInfo, hostApplicationInfo, archiveFilePath)
         } else {
             fillApplicationInfoForLowerApi(applicationInfo, hostApplicationInfo, archiveFilePath)
@@ -54,7 +54,7 @@ object CreateResourceBloc {
         try {
             val pluginResource = packageManager.getResourcesForApplication(applicationInfo)
 
-            return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
                 pluginResource
             } else {
                 val hostResources = hostAppContext.resources
@@ -167,6 +167,8 @@ private class MixResources(
     } catch (e: NotFoundException) {
         function(sharedResources)
     }
+
+
 
     override fun getText(id: Int) = tryMainThenShared { it.getText(id) }
 
@@ -358,10 +360,13 @@ private class MixResources(
             it.getConfiguration()
         }
 
-    override fun getIdentifier(name: String?, defType: String?, defPackage: String?) =
-        tryMainThenShared {
-            it.getIdentifier(name, defType, defPackage)
+    override fun getIdentifier(name: String?, defType: String?, defPackage: String?): Int {
+        var resid = mainResources.getIdentifier(name, defType, defPackage);
+        if (resid == 0) {
+            resid= sharedResources.getIdentifier(name, defType, defPackage);
         }
+        return resid;
+    }
 
     override fun getResourceName(resid: Int) =
         tryMainThenShared {
